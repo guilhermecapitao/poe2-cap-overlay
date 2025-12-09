@@ -366,14 +366,31 @@ ipcMain.handle('reload-windows', (): void => {
 });
 
 // Auto-updater events
+autoUpdater.on('checking-for-update', () => {
+  console.log('Checking for update...');
+});
+
 autoUpdater.on('update-available', (info) => {
+  console.log('Update available:', info.version);
   // Send to main window for styled modal
   if (mainWindow && !mainWindow.isDestroyed()) {
     mainWindow.webContents.send('update-available', info.version);
   }
 });
 
-autoUpdater.on('update-downloaded', () => {
+autoUpdater.on('update-not-available', () => {
+  console.log('Update not available - already on latest version');
+});
+
+autoUpdater.on('download-progress', (progress) => {
+  console.log(`Download progress: ${Math.round(progress.percent)}%`);
+  if (mainWindow && !mainWindow.isDestroyed()) {
+    mainWindow.webContents.send('download-progress', progress.percent);
+  }
+});
+
+autoUpdater.on('update-downloaded', (info) => {
+  console.log('Update downloaded:', info.version);
   // Send to main window for styled modal
   if (mainWindow && !mainWindow.isDestroyed()) {
     mainWindow.webContents.send('update-downloaded');
@@ -382,15 +399,27 @@ autoUpdater.on('update-downloaded', () => {
 
 autoUpdater.on('error', (error) => {
   console.error('Auto-updater error:', error);
+  if (mainWindow && !mainWindow.isDestroyed()) {
+    mainWindow.webContents.send('update-error', error.message);
+  }
 });
 
 // IPC handlers for update actions
-ipcMain.handle('download-update', () => {
-  autoUpdater.downloadUpdate();
+ipcMain.handle('download-update', async () => {
+  console.log('Starting download...');
+  try {
+    await autoUpdater.downloadUpdate();
+  } catch (error) {
+    console.error('Download error:', error);
+    throw error;
+  }
 });
 
 ipcMain.handle('install-update', () => {
-  autoUpdater.quitAndInstall();
+  console.log('Installing update...');
+  setImmediate(() => {
+    autoUpdater.quitAndInstall(false, true);
+  });
 });
 
 function checkForUpdates(): void {

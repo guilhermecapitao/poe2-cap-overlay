@@ -157,8 +157,17 @@ function setupEventListeners(): void {
   ipcRenderer.on('update-available', async (_event, version: string) => {
     const confirmed = await showUpdateAvailable(version);
     if (confirmed) {
-      await ipcRenderer.invoke('download-update');
+      try {
+        await ipcRenderer.invoke('download-update');
+      } catch (error) {
+        hideDownloading();
+        await showAlert('Erro no download', 'Não foi possível baixar a atualização. Tente novamente mais tarde.');
+      }
     }
+  });
+
+  ipcRenderer.on('download-progress', (_event, percent: number) => {
+    updateDownloadProgress(percent);
   });
 
   ipcRenderer.on('update-downloaded', async () => {
@@ -167,6 +176,12 @@ function setupEventListeners(): void {
     if (confirmed) {
       await ipcRenderer.invoke('install-update');
     }
+  });
+
+  ipcRenderer.on('update-error', async (_event, errorMessage: string) => {
+    hideDownloading();
+    console.error('Update error:', errorMessage);
+    await showAlert('Erro na atualização', `Ocorreu um erro: ${errorMessage}`);
   });
 }
 
@@ -887,10 +902,27 @@ function showDownloading(): void {
     </div>
     <h3 class="custom-modal-title">Baixando atualização...</h3>
     <p class="custom-modal-message">Por favor, aguarde enquanto a atualização é baixada.</p>
+    <div class="update-progress-container">
+      <div class="update-progress-bar">
+        <div class="update-progress-fill" id="downloadProgressFill"></div>
+      </div>
+      <span class="update-progress-text" id="downloadProgressText">0%</span>
+    </div>
   `;
 
   backdrop.appendChild(modal);
   document.body.appendChild(backdrop);
+}
+
+function updateDownloadProgress(percent: number): void {
+  const fill = document.getElementById('downloadProgressFill');
+  const text = document.getElementById('downloadProgressText');
+  if (fill) {
+    fill.style.width = `${percent}%`;
+  }
+  if (text) {
+    text.textContent = `${Math.round(percent)}%`;
+  }
 }
 
 function hideDownloading(): void {
