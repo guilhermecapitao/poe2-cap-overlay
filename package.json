@@ -20,7 +20,10 @@
     "overlay",
     "quest-tracker"
   ],
-  "author": "Guilherme Capitão",
+  "author": {
+    "name": "Guilherme Capitão",
+    "email": "guilhermecapitao@gmail.com"
+  },
   "license": "MIT",
   "dependencies": {
     "electron-store": "^11.0.2",
