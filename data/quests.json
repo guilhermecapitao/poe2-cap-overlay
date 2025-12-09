@@ -1,0 +1,735 @@
+{
+  "locale": "pt-BR",
+  "acts": [
+    {
+      "actNumber": 1,
+      "actName": {
+        "pt": "Ato 1 - Clearfell",
+        "en": "Act 1 - Clearfell"
+      },
+      "quests": [
+        {
+          "id": "a1_reaching_clearfell",
+          "type": "main",
+          "zone": {
+            "pt": "Margem do Rio / Acampamento de Clearfell",
+            "en": "The Riverbank / Clearfell Encampment"
+          },
+          "name": {
+            "pt": "Chegando a Clearfell",
+            "en": "Reaching Clearfell"
+          },
+          "description": {
+            "pt": "Encontre o caminho para o Acampamento de Clearfell",
+            "en": "Find your way to Clearfell Encampment"
+          },
+          "reward": {
+            "pt": "Gema de Habilidade Bruta",
+            "en": "Uncut Skill Gem"
+          },
+          "importance": "normal",
+          "tags": ["Gem"]
+        },
+        {
+          "id": "a1_treacherous_ground",
+          "type": "side",
+          "zone": {
+            "pt": "Clearfell / Toca de Lama",
+            "en": "Clearfell / Mud Burrow"
+          },
+          "name": {
+            "pt": "Terreno Traicoeiro",
+            "en": "Treacherous Ground"
+          },
+          "description": {
+            "pt": "Encontre a entrada da Toca de Lama e mate o Devorador",
+            "en": "Find the Mud Burrow entrance and slay the Devourer"
+          },
+          "reward": {
+            "pt": "Gema de Suporte Bruta",
+            "en": "Uncut Support Gem"
+          },
+          "importance": "important",
+          "tags": ["Boss", "Gem"]
+        },
+        {
+          "id": "a1_secrets_dark",
+          "type": "main",
+          "zone": {
+            "pt": "Grelwood / Vale Vermelho",
+            "en": "The Grelwood / Red Vale"
+          },
+          "name": {
+            "pt": "Segredos na Escuridao",
+            "en": "Secrets in the Dark"
+          },
+          "description": {
+            "pt": "Encontre a Arvore das Almas no Vale Vermelho",
+            "en": "Find the Tree of Souls in the Red Vale"
+          },
+          "reward": null,
+          "importance": "normal",
+          "tags": []
+        },
+        {
+          "id": "a1_hunt_begins",
+          "type": "side",
+          "zone": {
+            "pt": "Grelwood",
+            "en": "The Grelwood"
+          },
+          "name": {
+            "pt": "A Caca Comeca",
+            "en": "The Hunt Begins"
+          },
+          "description": {
+            "pt": "Cace criaturas em Grelwood",
+            "en": "Hunt creatures in The Grelwood"
+          },
+          "reward": null,
+          "importance": "optional",
+          "tags": []
+        },
+        {
+          "id": "a1_mysterious_shade",
+          "type": "main",
+          "zone": {
+            "pt": "Emaranhado Sombrio / Cemiterio",
+            "en": "Grim Tangle / Cemetery"
+          },
+          "name": {
+            "pt": "A Sombra Misteriosa",
+            "en": "The Mysterious Shade"
+          },
+          "description": {
+            "pt": "Siga a sombra misteriosa ate o cemiterio",
+            "en": "Follow the mysterious shade to the cemetery"
+          },
+          "reward": null,
+          "importance": "normal",
+          "tags": []
+        },
+        {
+          "id": "a1_sorrow_stones",
+          "type": "main",
+          "zone": {
+            "pt": "Cemiterio dos Eternos",
+            "en": "Cemetery of Eternals"
+          },
+          "name": {
+            "pt": "Tristeza Entre Pedras",
+            "en": "Sorrow Among Stones"
+          },
+          "description": {
+            "pt": "Derrote Asinia e Draven no cemiterio",
+            "en": "Defeat Asinia and Draven in the cemetery"
+          },
+          "reward": {
+            "pt": "Anel do Conde Lachlann + Gema de Suporte",
+            "en": "Count Lachlann's Ring + Support Gem"
+          },
+          "importance": "critical",
+          "tags": ["Boss", "Gem"]
+        },
+        {
+          "id": "a1_finding_forge",
+          "type": "side",
+          "zone": {
+            "pt": "Vila de Ogham",
+            "en": "Ogham Village"
+          },
+          "name": {
+            "pt": "Encontrando a Forja",
+            "en": "Finding the Forge"
+          },
+          "description": {
+            "pt": "Desbloqueie a Bancada de Salvamento",
+            "en": "Unlock the Salvage Bench"
+          },
+          "reward": {
+            "pt": "Forja Propria (Salvage Bench)",
+            "en": "Proper Forge (Salvage Bench)"
+          },
+          "importance": "important",
+          "tags": ["Unlock"]
+        },
+        {
+          "id": "a1_lost_lute",
+          "type": "side",
+          "zone": {
+            "pt": "Campos de Caca",
+            "en": "Hunting Grounds"
+          },
+          "name": {
+            "pt": "O Alaide Perdido",
+            "en": "The Lost Lute"
+          },
+          "description": {
+            "pt": "Encontre o Alaide de Una nas Terras de Caca de Ogham",
+            "en": "Find Una's Lute in the Ogham Farmlands"
+          },
+          "reward": {
+            "pt": "Livro de Especializacao (2 Weapon Set Points)",
+            "en": "Book of Specialisation (2 Weapon Set Points)"
+          },
+          "importance": "critical",
+          "tags": ["Passive Skill"]
+        },
+        {
+          "id": "a1_ominous_altars",
+          "type": "side",
+          "zone": {
+            "pt": "Campos de Caca / Freythorn",
+            "en": "Hunting Grounds / Freythorn"
+          },
+          "name": {
+            "pt": "Altares Ominosos",
+            "en": "Ominous Altars"
+          },
+          "description": {
+            "pt": "Destrua os altares corruptos e obtenha um Charm",
+            "en": "Destroy the corrupt altars and obtain a Charm"
+          },
+          "reward": {
+            "pt": "Charm (Ruby/Sapphire/Topaz)",
+            "en": "Charm (Ruby/Sapphire/Topaz)"
+          },
+          "importance": "important",
+          "tags": ["Charm"]
+        },
+        {
+          "id": "a1_trail_corruption",
+          "type": "main",
+          "zone": {
+            "pt": "Areas de Ogham / Deshar",
+            "en": "Ogham areas / Deshar"
+          },
+          "name": {
+            "pt": "O Rastro da Corrupcao",
+            "en": "The Trail of Corruption"
+          },
+          "description": {
+            "pt": "Siga o rastro da corrupcao",
+            "en": "Follow the corruption trail"
+          },
+          "reward": {
+            "pt": "Gema de Habilidade Bruta",
+            "en": "Uncut Skill Gem"
+          },
+          "importance": "normal",
+          "tags": ["Gem"]
+        },
+        {
+          "id": "a1_mad_wolf",
+          "type": "main",
+          "zone": {
+            "pt": "Muralhas do Solar / Vila",
+            "en": "Manor Ramparts / Village"
+          },
+          "name": {
+            "pt": "O Lobo Louco de Ogham",
+            "en": "The Mad Wolf of Ogham"
+          },
+          "description": {
+            "pt": "Derrote o Conde de Ferro e complete o Ato 1",
+            "en": "Defeat the Iron Count and complete Act 1"
+          },
+          "reward": {
+            "pt": "Ponto de Habilidade Passiva",
+            "en": "Passive Skill Point"
+          },
+          "importance": "critical",
+          "tags": ["Boss", "Passive Skill"]
+        }
+      ]
+    },
+    {
+      "actNumber": 2,
+      "actName": {
+        "pt": "Ato 2 - Vastiri",
+        "en": "Act 2 - Vastiri"
+      },
+      "quests": [
+        {
+          "id": "a2_earning_passage",
+          "type": "main",
+          "zone": {
+            "pt": "Arredores de Vastiri / Caravana",
+            "en": "Vastiri Outskirts / Caravan"
+          },
+          "name": {
+            "pt": "Ganhando Passagem",
+            "en": "Earning Passage"
+          },
+          "description": {
+            "pt": "Consiga passagem para as terras de Vastiri",
+            "en": "Earn passage to the Vastiri lands"
+          },
+          "reward": {
+            "pt": "Gema de Buff Bruta",
+            "en": "Uncut Buff Skill Gem"
+          },
+          "importance": "normal",
+          "tags": ["Gem"]
+        },
+        {
+          "id": "a2_traditions_toll",
+          "type": "side",
+          "zone": {
+            "pt": "Caravana Ardura / Deshar",
+            "en": "Ardura Caravan / Deshar"
+          },
+          "name": {
+            "pt": "O Preco da Tradicao",
+            "en": "Tradition's Toll"
+          },
+          "description": {
+            "pt": "Complete as tarefas da caravana",
+            "en": "Complete the caravan tasks"
+          },
+          "reward": {
+            "pt": "Livro de Especializacao",
+            "en": "Book of Specialisation"
+          },
+          "importance": "critical",
+          "tags": ["Passive Skill"]
+        },
+        {
+          "id": "a2_city_seven_waters",
+          "type": "main",
+          "zone": {
+            "pt": "Keth / Cidade Perdida",
+            "en": "Keth / Lost City"
+          },
+          "name": {
+            "pt": "A Cidade das Sete Aguas",
+            "en": "The City of Seven Waters"
+          },
+          "description": {
+            "pt": "Encontre a Cidade das Sete Aguas",
+            "en": "Find the City of Seven Waters"
+          },
+          "reward": {
+            "pt": "Gema de Suporte Bruta",
+            "en": "Uncut Support Gem"
+          },
+          "importance": "important",
+          "tags": ["Gem"]
+        },
+        {
+          "id": "a2_theft_ivory",
+          "type": "main",
+          "zone": {
+            "pt": "Ermo dos Mastodontes / Fossos Osseos",
+            "en": "Mastodon Badlands / Bone Pits"
+          },
+          "name": {
+            "pt": "Um Roubo de Marfim",
+            "en": "A Theft of Ivory"
+          },
+          "description": {
+            "pt": "Recupere o marfim roubado",
+            "en": "Recover the stolen ivory"
+          },
+          "reward": {
+            "pt": "Gema de Suporte Bruta",
+            "en": "Uncut Support Gem"
+          },
+          "importance": "important",
+          "tags": ["Gem"]
+        },
+        {
+          "id": "a2_ancient_vows",
+          "type": "side",
+          "zone": {
+            "pt": "Fossos Osseos / Keth / Vale dos Titas",
+            "en": "Bone Pits / Keth / Valley of the Titans"
+          },
+          "name": {
+            "pt": "Votos Antigos",
+            "en": "Ancient Vows"
+          },
+          "description": {
+            "pt": "Complete os votos antigos para desbloquear bonus",
+            "en": "Complete ancient vows to unlock bonuses"
+          },
+          "reward": {
+            "pt": "+30% Cargas de Charm, +15% Recuperacao de Mana",
+            "en": "+30% Charm Charges, +15% Mana Recovery"
+          },
+          "importance": "critical",
+          "tags": ["Charm", "Mana"]
+        },
+        {
+          "id": "a2_crown_stone",
+          "type": "main",
+          "zone": {
+            "pt": "Vale dos Titas",
+            "en": "Valley of the Titans"
+          },
+          "name": {
+            "pt": "Uma Coroa de Pedra",
+            "en": "A Crown of Stone"
+          },
+          "description": {
+            "pt": "Derrote Jamanra e complete o Ato 2",
+            "en": "Defeat Jamanra and complete Act 2"
+          },
+          "reward": {
+            "pt": "Gema de Suporte Bruta + Ponto de Habilidade",
+            "en": "Uncut Support Gem + Skill Point"
+          },
+          "importance": "critical",
+          "tags": ["Boss", "Passive Skill", "Gem"]
+        },
+        {
+          "id": "a2_ascent_power",
+          "type": "side",
+          "zone": {
+            "pt": "Templo Sekhema",
+            "en": "Sekhema Temple"
+          },
+          "name": {
+            "pt": "Ascensao ao Poder",
+            "en": "Ascent to Power"
+          },
+          "description": {
+            "pt": "Complete o Trial of Sekhemas e desbloqueie Ascendencia",
+            "en": "Complete the Trial of Sekhemas and unlock Ascendancy"
+          },
+          "reward": {
+            "pt": "Ascendencia Desbloqueada",
+            "en": "Ascendancy Unlocked"
+          },
+          "importance": "critical",
+          "tags": ["Ascendancy"]
+        }
+      ]
+    },
+    {
+      "actNumber": 3,
+      "actName": {
+        "pt": "Ato 3 - Utzaal",
+        "en": "Act 3 - Utzaal"
+      },
+      "quests": [
+        {
+          "id": "a3_legacy_vaal",
+          "type": "main",
+          "zone": {
+            "pt": "Pantano Varrido / Selva",
+            "en": "Sandswept Marsh / Jungle"
+          },
+          "name": {
+            "pt": "Legado dos Vaal",
+            "en": "Legacy of the Vaal"
+          },
+          "description": {
+            "pt": "Explore as ruinas Vaal e derrote a Rainha da Imundicie",
+            "en": "Explore the Vaal ruins and defeat the Queen of Filth"
+          },
+          "reward": null,
+          "importance": "normal",
+          "tags": []
+        },
+        {
+          "id": "a3_slithering_dead",
+          "type": "side",
+          "zone": {
+            "pt": "Ruinas da Selva / Criptas Venenosas",
+            "en": "Jungle Ruins / Venom Crypts"
+          },
+          "name": {
+            "pt": "Os Mortos Rastejantes",
+            "en": "The Slithering Dead"
+          },
+          "description": {
+            "pt": "Investigue os mortos rastejantes nas criptas",
+            "en": "Investigate the slithering dead in the crypts"
+          },
+          "reward": {
+            "pt": "Pocao de Veneno (variantes)",
+            "en": "Venom Draught (variants)"
+          },
+          "importance": "important",
+          "tags": ["Flask"]
+        },
+        {
+          "id": "a3_tribal_vengeance",
+          "type": "side",
+          "zone": {
+            "pt": "Pantano Azak",
+            "en": "Azak Bog"
+          },
+          "name": {
+            "pt": "Vinganca Tribal",
+            "en": "Tribal Vengeance"
+          },
+          "description": {
+            "pt": "Ajude as tribos com sua vinganca",
+            "en": "Help the tribes with their vengeance"
+          },
+          "reward": {
+            "pt": "Charm (variantes)",
+            "en": "Charm (variants)"
+          },
+          "importance": "important",
+          "tags": ["Charm"]
+        },
+        {
+          "id": "a3_treasures_utzaal",
+          "type": "side",
+          "zone": {
+            "pt": "Zigurate / Cidade Afogada",
+            "en": "Ziggurat / Drowned City"
+          },
+          "name": {
+            "pt": "Tesouros de Utzaal",
+            "en": "Treasures of Utzaal"
+          },
+          "description": {
+            "pt": "Encontre os tesouros escondidos de Utzaal",
+            "en": "Find the hidden treasures of Utzaal"
+          },
+          "reward": {
+            "pt": "Gema de Habilidade Bruta",
+            "en": "Uncut Skill Gem"
+          },
+          "importance": "important",
+          "tags": ["Gem"]
+        },
+        {
+          "id": "a3_apex_filth",
+          "type": "main",
+          "zone": {
+            "pt": "Apex da Imundicie",
+            "en": "Apex of Filth"
+          },
+          "name": {
+            "pt": "O Apex da Imundicie",
+            "en": "The Apex of Filth"
+          },
+          "description": {
+            "pt": "Derrote a Rainha da Imundicie e complete o Ato 3",
+            "en": "Defeat the Queen of Filth and complete Act 3"
+          },
+          "reward": {
+            "pt": "Ponto de Habilidade Passiva",
+            "en": "Passive Skill Point"
+          },
+          "importance": "critical",
+          "tags": ["Boss", "Passive Skill"]
+        }
+      ]
+    },
+    {
+      "actNumber": 4,
+      "actName": {
+        "pt": "Ato 4 - Kingsmarch",
+        "en": "Act 4 - Kingsmarch"
+      },
+      "quests": [
+        {
+          "id": "a4_the_search",
+          "type": "main",
+          "zone": {
+            "pt": "Kingsmarch",
+            "en": "Kingsmarch"
+          },
+          "name": {
+            "pt": "A Busca",
+            "en": "The Search"
+          },
+          "description": {
+            "pt": "Comece a busca em Kingsmarch",
+            "en": "Begin the search in Kingsmarch"
+          },
+          "reward": {
+            "pt": "Contrato de Barco",
+            "en": "Boat Charter"
+          },
+          "importance": "normal",
+          "tags": []
+        },
+        {
+          "id": "a4_isle_kin",
+          "type": "main",
+          "zone": {
+            "pt": "Ilha dos Parentes / Pedreira de Sulfito",
+            "en": "Isle of Kin / Sulphite Quarry"
+          },
+          "name": {
+            "pt": "Ilha dos Parentes",
+            "en": "Isle of Kin"
+          },
+          "description": {
+            "pt": "Investigue o que irritou os Kin",
+            "en": "Investigate what has riled the Kin"
+          },
+          "reward": null,
+          "importance": "normal",
+          "tags": []
+        },
+        {
+          "id": "a4_blind_beast",
+          "type": "side",
+          "zone": {
+            "pt": "Tocas Vulcanicas",
+            "en": "Volcanic Warrens"
+          },
+          "name": {
+            "pt": "A Besta Cega",
+            "en": "The Blind Beast"
+          },
+          "description": {
+            "pt": "Derrote a Besta Cega opcional",
+            "en": "Defeat the optional Blind Beast"
+          },
+          "reward": {
+            "pt": "2 Pontos de Weapon Set",
+            "en": "2 Weapon Set Passive Skill Points"
+          },
+          "importance": "critical",
+          "tags": ["Boss", "Passive Skill"]
+        },
+        {
+          "id": "a4_weapon_pieces",
+          "type": "side",
+          "zone": {
+            "pt": "Varias Ilhas",
+            "en": "Various Islands"
+          },
+          "name": {
+            "pt": "Pecas de Arma Perdidas",
+            "en": "Lost Weapon Pieces"
+          },
+          "description": {
+            "pt": "Encontre as pecas de arma espalhadas",
+            "en": "Find the scattered weapon pieces"
+          },
+          "reward": {
+            "pt": "Arma Especial",
+            "en": "Special Weapon"
+          },
+          "importance": "optional",
+          "tags": ["Weapon"]
+        },
+        {
+          "id": "a4_finale",
+          "type": "main",
+          "zone": {
+            "pt": "Fim do Ato 4",
+            "en": "Act 4 Finale"
+          },
+          "name": {
+            "pt": "O Terceiro Edito",
+            "en": "The Third Edict"
+          },
+          "description": {
+            "pt": "Complete o Ato 4 e avance para os Interludios",
+            "en": "Complete Act 4 and advance to the Interludes"
+          },
+          "reward": {
+            "pt": "Ponto de Habilidade Passiva",
+            "en": "Passive Skill Point"
+          },
+          "importance": "critical",
+          "tags": ["Boss", "Passive Skill"]
+        }
+      ]
+    },
+    {
+      "actNumber": 5,
+      "actName": {
+        "pt": "Interludio 1 - A Maldicao de Holten",
+        "en": "Interlude 1 - The Curse of Holten"
+      },
+      "quests": [
+        {
+          "id": "i1_curse_holten",
+          "type": "main",
+          "zone": {
+            "pt": "Holten",
+            "en": "Holten"
+          },
+          "name": {
+            "pt": "A Maldicao de Holten",
+            "en": "The Curse of Holten"
+          },
+          "description": {
+            "pt": "Complete o interludio e investigue a maldicao",
+            "en": "Complete the interlude and investigate the curse"
+          },
+          "reward": {
+            "pt": "Ponto de Habilidade Passiva",
+            "en": "Passive Skill Point"
+          },
+          "importance": "critical",
+          "tags": ["Boss", "Passive Skill"]
+        }
+      ]
+    },
+    {
+      "actNumber": 6,
+      "actName": {
+        "pt": "Interludio 2 - O Barya Roubado",
+        "en": "Interlude 2 - The Stolen Barya"
+      },
+      "quests": [
+        {
+          "id": "i2_stolen_barya",
+          "type": "main",
+          "zone": {
+            "pt": "Barya",
+            "en": "Barya"
+          },
+          "name": {
+            "pt": "O Barya Roubado",
+            "en": "The Stolen Barya"
+          },
+          "description": {
+            "pt": "Complete o interludio e recupere o Barya",
+            "en": "Complete the interlude and recover the Barya"
+          },
+          "reward": {
+            "pt": "Ponto de Habilidade Passiva",
+            "en": "Passive Skill Point"
+          },
+          "importance": "critical",
+          "tags": ["Boss", "Passive Skill"]
+        }
+      ]
+    },
+    {
+      "actNumber": 7,
+      "actName": {
+        "pt": "Interludio 3 - Contingencia de Doryani",
+        "en": "Interlude 3 - Doryani's Contingency"
+      },
+      "quests": [
+        {
+          "id": "i3_doryani",
+          "type": "main",
+          "zone": {
+            "pt": "Laboratorio de Doryani",
+            "en": "Doryani's Laboratory"
+          },
+          "name": {
+            "pt": "Contingencia de Doryani",
+            "en": "Doryani's Contingency"
+          },
+          "description": {
+            "pt": "Complete o interludio final e derrote Doryani",
+            "en": "Complete the final interlude and defeat Doryani"
+          },
+          "reward": {
+            "pt": "Ponto de Habilidade Passiva + Acesso ao Endgame",
+            "en": "Passive Skill Point + Endgame Access"
+          },
+          "importance": "critical",
+          "tags": ["Boss", "Passive Skill", "Endgame"]
+        }
+      ]
+    }
+  ]
+}

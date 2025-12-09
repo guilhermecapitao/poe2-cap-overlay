@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>POE2 Overlay</title>
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="./overlay.css">
+</head>
+<body>
+  <div class="overlay-container">
+    <!-- Draggable Header -->
+    <div class="overlay-header" id="overlayHeader">
+      <div class="overlay-title">
+        <span class="overlay-app-name">Cap Overlay</span>
+      </div>
+      <div class="overlay-header-actions">
+        <button class="overlay-btn overlay-timer-btn" id="timerToggleBtn" title="Timer">
+          <svg class="icon-svg-sm" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span id="timerDisplay">00:00</span>
+        </button>
+        <button class="overlay-btn overlay-close" id="closeOverlayBtn" title="Fechar (Alt+F)">
+          <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Progress Bar with Act Selector -->
+    <div class="overlay-progress">
+      <div class="overlay-progress-header">
+        <button class="act-selector-btn" id="actSelectorBtn">
+          <span id="overlayActTitle">Ato 1</span>
+          <svg class="act-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="overlay-timer-controls" id="timerControls">
+          <button class="timer-control-btn" id="timerPlayPause" title="Play/Pause">
+            <span id="playPauseIcon">
+              <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+            </span>
+          </button>
+          <button class="timer-control-btn" id="timerReset" title="Resetar Timer">
+            <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="overlay-progress-info">
+        <span class="overlay-progress-label">Progresso</span>
+        <span class="overlay-progress-percent" id="overlayProgressPercent">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-bar-fill" id="overlayProgressBar" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- Act Selector Dropdown -->
+    <div class="act-selector-dropdown" id="actSelectorDropdown" style="display: none;">
+      <div class="act-selector-list" id="actSelectorList">
+        <!-- Acts will be added here -->
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="overlay-stats">
+      <div class="overlay-stat">
+        <span class="overlay-stat-label">Obrigatórias</span>
+        <span class="overlay-stat-value" id="requiredCount">0/0</span>
+      </div>
+      <div class="overlay-stat">
+        <span class="overlay-stat-label">Importantes</span>
+        <span class="overlay-stat-value stat-critical" id="importantCount">0/0</span>
+      </div>
+      <div class="overlay-stat">
+        <span class="overlay-stat-label">Opcionais</span>
+        <span class="overlay-stat-value stat-optional" id="optionalCount">0/0</span>
+      </div>
+    </div>
+
+    <!-- Quest List -->
+    <div class="overlay-content" id="overlayContent">
+      <div class="overlay-quests" id="overlayQuests">
+        <!-- Quests will be added here -->
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="overlay-empty" id="overlayEmpty" style="display: none;">
+      <div class="overlay-empty-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M15 2H9a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1Z"/></svg>
+      </div>
+      <p>Nenhuma run ativa</p>
+      <small>Abra a janela principal para criar uma run</small>
+    </div>
+
+    <!-- Resize Handle -->
+    <div class="overlay-resize-handle" id="resizeHandle"></div>
+  </div>
+
+  <script>
+    // Shim for CommonJS modules in renderer
+    if (typeof exports === 'undefined') {
+      var exports = {};
+    }
+    if (typeof module === 'undefined') {
+      var module = { exports: exports };
+    }
+  </script>
+  <script src="../../dist/src/overlay/renderer.js"></script>
+</body>
+</html>
