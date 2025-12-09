@@ -1,6 +1,6 @@
 {
   "name": "poe2-cap-overlay",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Overlay para Path of Exile 2 - Track de quests e progresso da campanha",
   "main": "dist/main.js",
   "scripts": {
