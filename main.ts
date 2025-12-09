@@ -1,8 +1,13 @@
-import { app, BrowserWindow, ipcMain, globalShortcut, screen, IpcMainInvokeEvent } from 'electron';
+import { app, BrowserWindow, ipcMain, globalShortcut, screen, IpcMainInvokeEvent, dialog } from 'electron';
+import { autoUpdater } from 'electron-updater';
 
 import * as path from 'path';
 import * as fs from 'fs';
 import type { Run, Settings, StoreData, QuestData, QuestProgressPayload, SkipQuestPayload } from './src/types';
+
+// Auto-updater configuration
+autoUpdater.autoDownload = false;
+autoUpdater.autoInstallOnAppQuit = true;
 
 // Simple JSON-based storage
 class SimpleStore {
@@ -360,11 +365,53 @@ ipcMain.handle('reload-windows', (): void => {
   }
 });
 
+// Auto-updater events
+autoUpdater.on('update-available', (info) => {
+  dialog.showMessageBox({
+    type: 'info',
+    title: 'Atualização disponível',
+    message: `Uma nova versão (${info.version}) está disponível. Deseja baixar agora?`,
+    buttons: ['Sim', 'Não']
+  }).then((result) => {
+    if (result.response === 0) {
+      autoUpdater.downloadUpdate();
+    }
+  });
+});
+
+autoUpdater.on('update-downloaded', () => {
+  dialog.showMessageBox({
+    type: 'info',
+    title: 'Atualização pronta',
+    message: 'A atualização foi baixada. O aplicativo será reiniciado para instalar.',
+    buttons: ['Reiniciar agora', 'Mais tarde']
+  }).then((result) => {
+    if (result.response === 0) {
+      autoUpdater.quitAndInstall();
+    }
+  });
+});
+
+autoUpdater.on('error', (error) => {
+  console.error('Auto-updater error:', error);
+});
+
+function checkForUpdates(): void {
+  if (app.isPackaged) {
+    autoUpdater.checkForUpdates().catch((error) => {
+      console.error('Error checking for updates:', error);
+    });
+  }
+}
+
 // App lifecycle
 app.whenReady().then(() => {
   store.init();
   createMainWindow();
   registerShortcuts();
+
+  // Check for updates after startup (only in production)
+  setTimeout(checkForUpdates, 3000);
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
