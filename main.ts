@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, globalShortcut, screen, IpcMainInvokeEvent, dialog } from 'electron';
+import { app, BrowserWindow, ipcMain, globalShortcut, screen, IpcMainInvokeEvent } from 'electron';
 import { autoUpdater } from 'electron-updater';
 
 import * as path from 'path';
@@ -367,33 +367,30 @@ ipcMain.handle('reload-windows', (): void => {
 
 // Auto-updater events
 autoUpdater.on('update-available', (info) => {
-  dialog.showMessageBox({
-    type: 'info',
-    title: 'Atualização disponível',
-    message: `Uma nova versão (${info.version}) está disponível. Deseja baixar agora?`,
-    buttons: ['Sim', 'Não']
-  }).then((result) => {
-    if (result.response === 0) {
-      autoUpdater.downloadUpdate();
-    }
-  });
+  // Send to main window for styled modal
+  if (mainWindow && !mainWindow.isDestroyed()) {
+    mainWindow.webContents.send('update-available', info.version);
+  }
 });
 
 autoUpdater.on('update-downloaded', () => {
-  dialog.showMessageBox({
-    type: 'info',
-    title: 'Atualização pronta',
-    message: 'A atualização foi baixada. O aplicativo será reiniciado para instalar.',
-    buttons: ['Reiniciar agora', 'Mais tarde']
-  }).then((result) => {
-    if (result.response === 0) {
-      autoUpdater.quitAndInstall();
-    }
-  });
+  // Send to main window for styled modal
+  if (mainWindow && !mainWindow.isDestroyed()) {
+    mainWindow.webContents.send('update-downloaded');
+  }
 });
 
 autoUpdater.on('error', (error) => {
   console.error('Auto-updater error:', error);
+});
+
+// IPC handlers for update actions
+ipcMain.handle('download-update', () => {
+  autoUpdater.downloadUpdate();
+});
+
+ipcMain.handle('install-update', () => {
+  autoUpdater.quitAndInstall();
 });
 
 function checkForUpdates(): void {

@@ -152,6 +152,22 @@ function setupEventListeners(): void {
     renderRunsList();
     renderAccordion();
   });
+
+  // Auto-update listeners
+  ipcRenderer.on('update-available', async (_event, version: string) => {
+    const confirmed = await showUpdateAvailable(version);
+    if (confirmed) {
+      await ipcRenderer.invoke('download-update');
+    }
+  });
+
+  ipcRenderer.on('update-downloaded', async () => {
+    hideDownloading();
+    const confirmed = await showUpdateReady();
+    if (confirmed) {
+      await ipcRenderer.invoke('install-update');
+    }
+  });
 }
 
 // Toggle overlay
@@ -800,6 +816,126 @@ function showConfirm(title: string, message: string): Promise<boolean> {
         backdrop.remove();
         resolve(false);
       }
+    });
+  });
+}
+
+// Update modal functions
+let downloadingBackdrop: HTMLElement | null = null;
+
+function showUpdateAvailable(version: string): Promise<boolean> {
+  return new Promise((resolve) => {
+    const backdrop = document.createElement('div');
+    backdrop.className = 'custom-modal-backdrop';
+
+    const modal = document.createElement('div');
+    modal.className = 'custom-modal update-modal';
+    modal.innerHTML = `
+      <div class="update-modal-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+      </div>
+      <h3 class="custom-modal-title">Nova versão disponível!</h3>
+      <p class="custom-modal-message">A versão <strong>${escapeHtml(version)}</strong> está disponível para download.</p>
+      <div class="custom-modal-actions">
+        <button class="btn btn-secondary custom-modal-btn-cancel">Mais tarde</button>
+        <button class="btn btn-primary custom-modal-btn-confirm">Baixar agora</button>
+      </div>
+    `;
+
+    backdrop.appendChild(modal);
+    document.body.appendChild(backdrop);
+
+    const cancelBtn = modal.querySelector('.custom-modal-btn-cancel') as HTMLButtonElement;
+    const confirmBtn = modal.querySelector('.custom-modal-btn-confirm') as HTMLButtonElement;
+
+    cancelBtn.addEventListener('click', () => {
+      backdrop.remove();
+      resolve(false);
+    });
+
+    confirmBtn.addEventListener('click', () => {
+      backdrop.remove();
+      showDownloading();
+      resolve(true);
+    });
+  });
+}
+
+function showDownloading(): void {
+  const backdrop = document.createElement('div');
+  backdrop.className = 'custom-modal-backdrop';
+  downloadingBackdrop = backdrop;
+
+  const modal = document.createElement('div');
+  modal.className = 'custom-modal update-modal';
+  modal.innerHTML = `
+    <div class="update-modal-icon downloading">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="spin">
+        <line x1="12" y1="2" x2="12" y2="6"></line>
+        <line x1="12" y1="18" x2="12" y2="22"></line>
+        <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+        <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+        <line x1="2" y1="12" x2="6" y2="12"></line>
+        <line x1="18" y1="12" x2="22" y2="12"></line>
+        <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+        <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+      </svg>
+    </div>
+    <h3 class="custom-modal-title">Baixando atualização...</h3>
+    <p class="custom-modal-message">Por favor, aguarde enquanto a atualização é baixada.</p>
+  `;
+
+  backdrop.appendChild(modal);
+  document.body.appendChild(backdrop);
+}
+
+function hideDownloading(): void {
+  if (downloadingBackdrop) {
+    downloadingBackdrop.remove();
+    downloadingBackdrop = null;
+  }
+}
+
+function showUpdateReady(): Promise<boolean> {
+  return new Promise((resolve) => {
+    const backdrop = document.createElement('div');
+    backdrop.className = 'custom-modal-backdrop';
+
+    const modal = document.createElement('div');
+    modal.className = 'custom-modal update-modal';
+    modal.innerHTML = `
+      <div class="update-modal-icon success">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      <h3 class="custom-modal-title">Atualização pronta!</h3>
+      <p class="custom-modal-message">A atualização foi baixada com sucesso. Reinicie o aplicativo para instalar.</p>
+      <div class="custom-modal-actions">
+        <button class="btn btn-secondary custom-modal-btn-cancel">Mais tarde</button>
+        <button class="btn btn-primary custom-modal-btn-confirm">Reiniciar agora</button>
+      </div>
+    `;
+
+    backdrop.appendChild(modal);
+    document.body.appendChild(backdrop);
+
+    const cancelBtn = modal.querySelector('.custom-modal-btn-cancel') as HTMLButtonElement;
+    const confirmBtn = modal.querySelector('.custom-modal-btn-confirm') as HTMLButtonElement;
+
+    cancelBtn.addEventListener('click', () => {
+      backdrop.remove();
+      resolve(false);
+    });
+
+    confirmBtn.addEventListener('click', () => {
+      backdrop.remove();
+      resolve(true);
     });
   });
 }
