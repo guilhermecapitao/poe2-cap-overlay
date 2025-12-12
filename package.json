@@ -1,6 +1,6 @@
 {
   "name": "poe2-cap-overlay",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Overlay para Path of Exile 2 - Track de quests e progresso da campanha",
   "main": "dist/main.js",
   "scripts": {
@@ -77,7 +77,8 @@
     },
     "nsis": {
       "oneClick": false,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "${name}-Setup-${version}.${ext}"
     },
     "mac": {
       "target": [
@@ -86,7 +87,8 @@
           "arch": ["x64", "arm64"]
         }
       ],
-      "category": "public.app-category.games"
+      "category": "public.app-category.games",
+      "artifactName": "${name}-${version}-${arch}.${ext}"
     },
     "linux": {
       "target": [
@@ -99,7 +101,8 @@
           "arch": ["x64"]
         }
       ],
-      "category": "Game"
+      "category": "Game",
+      "artifactName": "${name}-${version}-${arch}.${ext}"
     }
   }
 }
