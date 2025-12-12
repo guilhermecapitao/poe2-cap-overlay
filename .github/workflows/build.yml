@@ -61,7 +61,7 @@ jobs:
           path: |
             release/*.exe
             release/*.exe.blockmap
-            release/*.yml
+            release/latest.yml
           if-no-files-found: error
 
       - name: Upload artifacts (macOS)
@@ -72,7 +72,7 @@ jobs:
           path: |
             release/*.dmg
             release/*.dmg.blockmap
-            release/*.yml
+            release/latest-mac.yml
           if-no-files-found: error
 
       - name: Upload artifacts (Linux)
@@ -83,7 +83,7 @@ jobs:
           path: |
             release/*.AppImage
             release/*.deb
-            release/*.yml
+            release/latest-linux.yml
           if-no-files-found: error
 
   release:
