@@ -75,6 +75,9 @@ function setupEventListeners(): void {
     window.close();
   });
 
+  // Collapse/Expand button
+  $('collapseOverlayBtn')?.addEventListener('click', toggleCollapse);
+
   // Close dropdown when clicking outside
   document.addEventListener('click', (e) => {
     const dropdown = $('actSelectorDropdown');
@@ -137,6 +140,26 @@ function setupEventListeners(): void {
       updateTimerButton();
     }
   });
+}
+
+// Toggle overlay collapse
+async function toggleCollapse(): Promise<void> {
+  const collapsed = await ipcRenderer.invoke('toggle-overlay-collapse');
+  const icon = $('collapseIcon');
+  const container = document.querySelector('.overlay-container');
+
+  if (icon) {
+    // Rotate icon based on collapsed state
+    icon.style.transform = collapsed ? 'rotate(180deg)' : 'rotate(0deg)';
+  }
+
+  if (container) {
+    if (collapsed) {
+      container.classList.add('collapsed');
+    } else {
+      container.classList.remove('collapsed');
+    }
+  }
 }
 
 // Toggle act selector dropdown

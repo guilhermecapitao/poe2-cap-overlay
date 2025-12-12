@@ -121,6 +121,8 @@ function createOverlayWindow(): void {
 
   overlayWindow.loadFile('src/overlay/index.html');
 
+  // Use 'screen-saver' level to stay on top of fullscreen games
+  overlayWindow.setAlwaysOnTop(true, 'screen-saver');
   overlayWindow.setIgnoreMouseEvents(false);
   overlayWindow.setOpacity(settings.overlayOpacity);
 
@@ -242,6 +244,36 @@ ipcMain.handle('save-settings', (_event: IpcMainInvokeEvent, settings: Settings)
 
 ipcMain.handle('toggle-overlay', (): void => {
   toggleOverlay();
+});
+
+// Overlay collapse state
+let overlayCollapsed = false;
+let overlayExpandedHeight = 400;
+
+ipcMain.handle('toggle-overlay-collapse', (): boolean => {
+  if (!overlayWindow) return false;
+
+  overlayCollapsed = !overlayCollapsed;
+
+  if (overlayCollapsed) {
+    // Save current height before collapsing
+    const size = overlayWindow.getSize();
+    overlayExpandedHeight = size[1];
+    // Set to header height only (approximately 44px)
+    overlayWindow.setSize(size[0], 44);
+    overlayWindow.setResizable(false);
+  } else {
+    // Restore to previous height
+    const size = overlayWindow.getSize();
+    overlayWindow.setSize(size[0], overlayExpandedHeight);
+    overlayWindow.setResizable(true);
+  }
+
+  return overlayCollapsed;
+});
+
+ipcMain.handle('get-overlay-collapsed', (): boolean => {
+  return overlayCollapsed;
 });
 
 ipcMain.handle('get-quest-data', (): QuestData => {

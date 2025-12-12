@@ -671,3 +671,34 @@ body {
 .quest-skip-btn:active {
   opacity: 0.8;
 }
+
+/* Collapse Button */
+.overlay-collapse {
+  -webkit-app-region: no-drag;
+}
+
+.overlay-collapse .collapse-icon {
+  transition: transform 0.2s ease;
+}
+
+/* Collapsed State */
+.overlay-container.collapsed .overlay-progress,
+.overlay-container.collapsed .overlay-stats,
+.overlay-container.collapsed .overlay-content,
+.overlay-container.collapsed .overlay-empty,
+.overlay-container.collapsed .overlay-resize-handle,
+.overlay-container.collapsed .act-selector-dropdown {
+  display: none !important;
+}
+
+.overlay-container.collapsed {
+  overflow: hidden;
+}
+
+.overlay-container.collapsed .overlay-header {
+  border-bottom: none;
+}
+
+.overlay-container.collapsed .overlay-header::after {
+  display: none;
+}
