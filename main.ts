@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, globalShortcut, screen, IpcMainInvokeEvent, Tray, Menu, nativeImage, dialog } from 'electron';
+import { app, BrowserWindow, ipcMain, globalShortcut, screen, IpcMainInvokeEvent, Tray, Menu, nativeImage } from 'electron';
 import { autoUpdater } from 'electron-updater';
 
 import * as path from 'path';
@@ -89,29 +89,11 @@ function createMainWindow(): void {
     mainWindow?.show();
   });
 
-  // Intercept close to ask user what to do
+  // Intercept close to minimize to tray instead
   mainWindow.on('close', (event) => {
     if (!isQuitting && mainWindow) {
       event.preventDefault();
-
-      dialog.showMessageBox(mainWindow, {
-        type: 'question',
-        buttons: ['Minimizar para bandeja', 'Fechar aplicação'],
-        defaultId: 0,
-        cancelId: 0,
-        title: 'Fechar janela',
-        message: 'O que você deseja fazer?',
-        detail: 'O overlay continuará funcionando se você minimizar para a bandeja.'
-      }).then((result) => {
-        if (result.response === 1) {
-          // Close application
-          isQuitting = true;
-          app.quit();
-        } else {
-          // Minimize to tray
-          mainWindow?.hide();
-        }
-      });
+      mainWindow.hide();
     }
   });
 
