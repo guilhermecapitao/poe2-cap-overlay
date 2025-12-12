@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, globalShortcut, screen, IpcMainInvokeEvent } from 'electron';
+import { app, BrowserWindow, ipcMain, globalShortcut, screen, IpcMainInvokeEvent, Tray, Menu, nativeImage, dialog } from 'electron';
 import { autoUpdater } from 'electron-updater';
 
 import * as path from 'path';
@@ -55,6 +55,8 @@ const store = new SimpleStore();
 
 let mainWindow: Electron.BrowserWindow | null = null;
 let overlayWindow: Electron.BrowserWindow | null = null;
+let tray: Tray | null = null;
+let isQuitting = false;
 
 // Default settings
 const defaultSettings: Settings = {
@@ -87,6 +89,32 @@ function createMainWindow(): void {
     mainWindow?.show();
   });
 
+  // Intercept close to ask user what to do
+  mainWindow.on('close', (event) => {
+    if (!isQuitting && mainWindow) {
+      event.preventDefault();
+
+      dialog.showMessageBox(mainWindow, {
+        type: 'question',
+        buttons: ['Minimizar para bandeja', 'Fechar aplicação'],
+        defaultId: 0,
+        cancelId: 0,
+        title: 'Fechar janela',
+        message: 'O que você deseja fazer?',
+        detail: 'O overlay continuará funcionando se você minimizar para a bandeja.'
+      }).then((result) => {
+        if (result.response === 1) {
+          // Close application
+          isQuitting = true;
+          app.quit();
+        } else {
+          // Minimize to tray
+          mainWindow?.hide();
+        }
+      });
+    }
+  });
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
@@ -95,6 +123,55 @@ function createMainWindow(): void {
   if (process.env.NODE_ENV === 'development') {
     mainWindow.webContents.openDevTools();
   }
+}
+
+// Create system tray
+function createTray(): void {
+  // Create a simple 16x16 icon
+  const icon = nativeImage.createEmpty();
+
+  tray = new Tray(icon);
+  tray.setToolTip('POE2 Cap Overlay');
+
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Abrir janela principal',
+      click: () => {
+        if (mainWindow) {
+          mainWindow.show();
+          mainWindow.focus();
+        } else {
+          createMainWindow();
+        }
+      }
+    },
+    {
+      label: 'Mostrar/Ocultar overlay',
+      click: () => {
+        toggleOverlay();
+      }
+    },
+    { type: 'separator' },
+    {
+      label: 'Sair',
+      click: () => {
+        isQuitting = true;
+        app.quit();
+      }
+    }
+  ]);
+
+  tray.setContextMenu(contextMenu);
+
+  // Double-click to show main window
+  tray.on('double-click', () => {
+    if (mainWindow) {
+      mainWindow.show();
+      mainWindow.focus();
+    } else {
+      createMainWindow();
+    }
+  });
 }
 
 function createOverlayWindow(): void {
@@ -465,6 +542,7 @@ function checkForUpdates(): void {
 // App lifecycle
 app.whenReady().then(() => {
   store.init();
+  createTray();
   createMainWindow();
   registerShortcuts();
 
@@ -472,16 +550,22 @@ app.whenReady().then(() => {
   setTimeout(checkForUpdates, 3000);
 
   app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
+    if (mainWindow) {
+      mainWindow.show();
+    } else {
       createMainWindow();
     }
   });
 });
 
+// Handle before-quit to set isQuitting flag
+app.on('before-quit', () => {
+  isQuitting = true;
+});
+
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+  // Don't quit when windows are closed - we run in tray
+  // Only quit when isQuitting is true (user selected "Fechar aplicação")
 });
 
 app.on('will-quit', () => {
